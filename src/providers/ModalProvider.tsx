@@ -1,8 +1,9 @@
 "use client";
 
+import { StoreModal } from "@/components/modals/StoreModal";
 import { useEffect, useState } from "react";
 
-export const ModalProvider = ({ children }: { children: React.ReactNode }) => {
+export const ModalProvider = () => {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -13,5 +14,9 @@ export const ModalProvider = ({ children }: { children: React.ReactNode }) => {
     return null;
   }
 
-  return <>{children}</>;
+  return (
+    <>
+      <StoreModal />
+    </>
+  );
 };
