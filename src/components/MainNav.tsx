@@ -3,7 +3,15 @@
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
 
+import {
+  Menubar,
+  MenubarContent,
+  MenubarItem,
+  MenubarMenu,
+  MenubarTrigger,
+} from "@/components/ui/menubar";
 import { cn } from "@/lib/utils";
+import { AlignJustify } from "lucide-react";
 
 export function MainNav({
   className,
@@ -60,20 +68,45 @@ export function MainNav({
       className={cn("flex items-center space-x-4 lg:space-x-6", className)}
       {...props}
     >
-      {routes.map((route) => (
-        <Link
-          key={route.href}
-          href={route.href}
-          className={cn(
-            "text-sm font-medium transition-colors hover:text-primary",
-            route.active
-              ? "text-black dark:text-white"
-              : "text-muted-foreground"
-          )}
-        >
-          {route.label}
-        </Link>
-      ))}
+      <Menubar className="lg:hidden">
+        <MenubarMenu>
+          <MenubarTrigger>
+            <AlignJustify />
+          </MenubarTrigger>
+          <MenubarContent>
+            {routes.map((route) => (
+              <Link
+                key={route.href}
+                href={route.href}
+                className={cn(
+                  "text-sm font-medium transition-colors hover:text-primary",
+                  route.active
+                    ? "text-black dark:text-white"
+                    : "text-muted-foreground"
+                )}
+              >
+                <MenubarItem>{route.label}</MenubarItem>
+              </Link>
+            ))}
+          </MenubarContent>
+        </MenubarMenu>
+      </Menubar>
+      <div className="hidden lg:flex items-center space-x-4">
+        {routes.map((route) => (
+          <Link
+            key={route.href}
+            href={route.href}
+            className={cn(
+              "text-sm font-medium transition-colors hover:text-primary",
+              route.active
+                ? "text-black dark:text-white"
+                : "text-muted-foreground"
+            )}
+          >
+            {route.label}
+          </Link>
+        ))}
+      </div>
     </nav>
   );
 }
