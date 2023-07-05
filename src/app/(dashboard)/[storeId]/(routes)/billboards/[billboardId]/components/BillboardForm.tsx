@@ -6,7 +6,7 @@ import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
-import { Trash } from "lucide-react";
+import { ArrowLeft, Trash } from "lucide-react";
 import { Billboard } from "@prisma/client";
 import { useParams, useRouter } from "next/navigation";
 
@@ -24,6 +24,7 @@ import { Separator } from "@/components/ui/separator";
 import { AlertModal } from "@/components/modals/AlertModal";
 import { Heading } from "@/components/ui/Heading";
 import ImageUpload from "@/components/ui/ImageUpload";
+import Link from "next/link";
 
 const formSchema = z.object({
   label: z.string().min(1),
@@ -109,7 +110,12 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
         loading={loading}
       />
       <div className="flex items-center justify-between">
-        <Heading title={title} description={description} />
+        <div className="flex items-center">
+          <Link href={`/${params.storeId}/billboards`} className="mr-3">
+            <ArrowLeft strokeWidth={3} />
+          </Link>
+          <Heading title={title} description={description} />
+        </div>
         {initialData && (
           <Button
             disabled={loading}
