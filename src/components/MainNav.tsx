@@ -10,7 +10,14 @@ import {
   MenubarMenu,
   MenubarTrigger,
 } from "@/components/ui/menubar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 import { AlignJustify } from "lucide-react";
 
 export function MainNav({
@@ -68,12 +75,16 @@ export function MainNav({
       className={cn("flex items-center space-x-4 lg:space-x-6", className)}
       {...props}
     >
-      <Menubar className="lg:hidden">
-        <MenubarMenu>
-          <MenubarTrigger>
-            <AlignJustify />
-          </MenubarTrigger>
-          <MenubarContent>
+      <div className="lg:hidden">
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline" size="icon">
+              <AlignJustify />
+              {/* <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+            <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" /> */}
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
             {routes.map((route) => (
               <Link
                 key={route.href}
@@ -85,12 +96,13 @@ export function MainNav({
                     : "text-muted-foreground"
                 )}
               >
-                <MenubarItem>{route.label}</MenubarItem>
+                <DropdownMenuItem>{route.label}</DropdownMenuItem>
               </Link>
             ))}
-          </MenubarContent>
-        </MenubarMenu>
-      </Menubar>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+
       <div className="hidden lg:flex items-center space-x-4">
         {routes.map((route) => (
           <Link
